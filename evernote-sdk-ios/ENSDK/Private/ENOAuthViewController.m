@@ -96,7 +96,8 @@
                                               self.activityIndicator.frame.size.height);
     [self.webView addSubview:self.activityIndicator];
     [self updateUIForNewProfile:self.currentProfileName
-           withAuthorizationURL:self.authorizationURL];
+           withAuthorizationURL:self.authorizationURL
+            oauthCallbackPrefix:self.oauthCallbackPrefix];
 }
 
 - (void)cancel:(id)sender
@@ -131,9 +132,12 @@
     [self.delegate oauthViewControllerDidSwitchProfile:self];
 }
 
-- (void)updateUIForNewProfile:(NSString*)newProfile withAuthorizationURL:(NSURL*)authURL{
+- (void)updateUIForNewProfile:(NSString*)newProfile
+         withAuthorizationURL:(NSURL*)authURL
+          oauthCallbackPrefix:(NSString *)oauthCallbackPrefix{
     self.authorizationURL = authURL;
     self.currentProfileName = newProfile;
+    self.oauthCallbackPrefix = oauthCallbackPrefix;
     if(self.isSwitchingAllowed) {
         NSString *leftButtonTitle = nil;
         if([self.currentProfileName isEqualToString:ENBootstrapProfileNameChina]) {

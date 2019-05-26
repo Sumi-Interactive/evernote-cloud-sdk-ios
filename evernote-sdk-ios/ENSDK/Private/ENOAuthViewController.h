@@ -47,6 +47,8 @@
                 allowSwitching:(BOOL)isSwitchingAllowed
                       delegate:(id<ENOAuthViewControllerDelegate>)delegate;
 
-- (void)updateUIForNewProfile:(NSString*)newProfile withAuthorizationURL:(NSURL*)authURL;
+- (void)updateUIForNewProfile:(NSString*)newProfile
+         withAuthorizationURL:(NSURL*)authURL
+          oauthCallbackPrefix:(NSString *)oauthCallbackPrefix;
 
 @end

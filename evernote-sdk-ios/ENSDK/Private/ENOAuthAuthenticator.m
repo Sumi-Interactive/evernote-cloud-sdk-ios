@@ -485,9 +485,10 @@ NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked = @"ENOAuthAuthentica
         [self.authenticationViewController setViewControllers:@[self.oauthViewController] animated:NO];
     }
     else {
-        [self.oauthViewController updateUIForNewProfile:self.currentProfile withAuthorizationURL:authorizationURL];
+        [self.oauthViewController updateUIForNewProfile:self.currentProfile
+                                   withAuthorizationURL:authorizationURL
+                                    oauthCallbackPrefix:[self oauthCallback]];
         self.isSwitchingInProgress = NO;
-        
     }
 }
 
