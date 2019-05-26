@@ -234,7 +234,9 @@ typedef NS_OPTIONS(NSUInteger, ENSessionSortOrder) {
  *  @param host   (optional) If you're using a non-production host, like the developer sandbox, specify it here.
  */
 + (void)setSharedSessionConsumerKey:(NSString *)key
-                     consumerSecret:(NSString *)secret
+                     ConsumerSecret:(NSString *)secret
+                   ChinaConsumerKey:(NSString *)zhKey
+                ChinaConsumerSecret:(NSString *)zhSecret
                        optionalHost:(nullable NSString *)host;
 
 /**
