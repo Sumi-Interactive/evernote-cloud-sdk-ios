@@ -17,6 +17,7 @@ let package = Package(
     .target(
       name: "EvernoteSDKObjC",
       path: "evernote-sdk-ios",
+      resources: [.process("../ENSDKResources.bundle")],
       publicHeadersPath: "ENSDK/include",
       cSettings: [
         .headerSearchPath("ENSDK/include"),
