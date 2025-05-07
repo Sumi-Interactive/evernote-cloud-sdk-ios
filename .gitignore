@@ -23,3 +23,5 @@ build/
 evernote-sdk-ios.xcodeproj/project.xcworkspace/xcshareddata/evernote-sdk-ios.xccheckout
 
 /Products/
+
+.swiftpm
