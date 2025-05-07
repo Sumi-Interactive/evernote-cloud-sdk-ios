@@ -37,12 +37,14 @@ extern NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked;
 - (ENUserStoreClient *)userStoreClientForBootstrapping;
 - (void)authenticatorDidAuthenticateWithCredentials:(ENCredentials *)credentials authInfo:(NSDictionary *)authInfo;
 - (void)authenticatorDidFailWithError:(NSError *)error;
+- (NSString *)consumerKeyForProfileName: (NSString *)profileName;
+- (NSString *)consumerSecretForProfileName: (NSString *)profileName;
 @end
 
 @interface ENOAuthAuthenticator : NSObject
 @property (nonatomic, weak) id<ENOAuthAuthenticatorDelegate> delegate;
-@property (nonatomic, copy) NSString * consumerKey;
-@property (nonatomic, copy) NSString * consumerSecret;
+//@property (nonatomic, copy) NSString * consumerKey;
+//@property (nonatomic, copy) NSString * consumerSecret;
 @property (nonatomic, copy) NSString * host;
 @property (nonatomic, assign) BOOL supportsLinkedAppNotebook;
 @property (nonatomic, assign) BOOL useWebAuthenticationOnly;

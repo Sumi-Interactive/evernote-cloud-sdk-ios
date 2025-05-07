@@ -109,6 +109,16 @@ NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked = @"ENOAuthAuthentica
     }
 }
 
+- (NSString *) consumerKey
+{
+    return [self.delegate consumerKeyForProfileName:self.currentProfile];
+}
+
+- (NSString *) consumerSecret
+{
+    return [self.delegate consumerSecretForProfileName:self.currentProfile];
+}
+
 - (void)authenticateWithViewController:(UIViewController *)viewController
 {
     NSAssert(!self.inProgress, @"Authenticator is a single-use-only object!");
@@ -171,8 +181,8 @@ NSString * ENOAuthAuthenticatorAuthInfoAppNotebookIsLinked = @"ENOAuthAuthentica
                                                                    [self oauthCallback], @"oauth_callback", nil]
                                                            scheme:OAUTH_PROTOCOL_SCHEME
                                                              host:self.host
-                                                      consumerKey:self.consumerKey
-                                                   consumerSecret:self.consumerSecret
+                                                      consumerKey:[self consumerKey]
+                                                   consumerSecret:[self consumerSecret]
                                                       accessToken:nil
                                                       tokenSecret:nil];
     

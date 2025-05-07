@@ -139,18 +139,24 @@ static NSUInteger ENSessionNotebooksCacheValidity = (5 * 60);   // 5 minutes
 @implementation ENSession
 
 static NSString * SessionHostOverride;
-static NSString * ConsumerKey, * ConsumerSecret;
+static NSString * ChinaConsumerKey, * ChinaConsumerSecret;
+static NSString * InternationalConsumerKey, * InternationalConsumerSecret;
 static NSString * DeveloperToken, * NoteStoreUrl;
 static NSString * SecurityApplicationGroupIdentifier;
 static NSString * _keychainGroup, * _keychainAccessGroup;
 static BOOL disableRefreshingNotebooksCacheOnLaunch;
 
 + (void)setSharedSessionConsumerKey:(NSString *)key
-                     consumerSecret:(NSString *)secret
+                     ConsumerSecret:(NSString *)secret
+                     ChinaConsumerKey:(NSString *)zhKey
+                     ChinaConsumerSecret:(NSString *)zhSecret
                        optionalHost:(NSString *)host
 {
-    ConsumerKey = key;
-    ConsumerSecret = secret;
+    InternationalConsumerKey = key;
+    InternationalConsumerSecret = secret;
+    ChinaConsumerKey = zhKey;
+    ChinaConsumerSecret = zhSecret;
+    
     SessionHostOverride = host;
     
     DeveloperToken = nil;
@@ -163,8 +169,10 @@ static BOOL disableRefreshingNotebooksCacheOnLaunch;
     DeveloperToken = token;
     NoteStoreUrl = url;
 
-    ConsumerKey = nil;
-    ConsumerSecret = nil;
+    InternationalConsumerKey = nil;
+    InternationalConsumerSecret = nil;
+    ChinaConsumerKey = nil;
+    ChinaConsumerSecret = nil;
 }
 
 + (ENSession *)sharedSession
@@ -204,8 +212,10 @@ static BOOL disableRefreshingNotebooksCacheOnLaunch;
         return YES;
     }
     
-    if (ConsumerKey && ![ConsumerKey isEqualToString:@"your key"] &&
-        ConsumerSecret && ![ConsumerSecret isEqualToString:@"your secret"]) {
+    if (InternationalConsumerKey && ![InternationalConsumerKey isEqualToString:@"your key"] &&
+        InternationalConsumerSecret && ![InternationalConsumerSecret isEqualToString:@"your secret"] &&
+        ChinaConsumerKey && ![ChinaConsumerKey isEqualToString:@"your key"] &&
+        ChinaConsumerSecret && ![ChinaConsumerSecret isEqualToString:@"your secret"]) {
         return YES;
     }
     
@@ -343,8 +353,7 @@ static BOOL disableRefreshingNotebooksCacheOnLaunch;
     
     self.authenticator = [[ENOAuthAuthenticator alloc] init];
     self.authenticator.delegate = self;
-    self.authenticator.consumerKey = ConsumerKey;
-    self.authenticator.consumerSecret = ConsumerSecret;
+
     self.authenticator.host = self.sessionHost;
     self.authenticator.supportsLinkedAppNotebook = self.supportsLinkedAppNotebook;
     self.authenticator.preferRegistration = preferRegistration;
@@ -1945,6 +1954,22 @@ static BOOL disableRefreshingNotebooksCacheOnLaunch;
 - (void)authenticatorDidFailWithError:(NSError *)error
 {
     [self completeAuthenticationWithError:error];
+}
+
+- (NSString *)consumerSecretForProfileName:(NSString *)profileName {
+    if ([profileName isEqualToString:ENBootstrapProfileNameChina]) {
+        return ChinaConsumerSecret;
+    } else {
+        return InternationalConsumerSecret;
+    }
+}
+
+- (NSString *)consumerKeyForProfileName:(NSString *)profileName {
+    if ([profileName isEqualToString:ENBootstrapProfileNameChina]) {
+        return ChinaConsumerKey;
+    } else {
+        return InternationalConsumerKey;
+    }
 }
 
 #pragma mark - Notification handlers
