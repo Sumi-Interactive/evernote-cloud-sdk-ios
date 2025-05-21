@@ -11,23 +11,23 @@ let package = Package(
     .library(
       name: "EvernoteSDK",
       targets: ["EvernoteSDK"]
-    ),
+    )
   ],
   targets: [
     .target(
       name: "EvernoteSDKObjC",
       path: "evernote-sdk-ios",
-      resources: [.process("../ENSDKResources.bundle")],
+      resources: [.copy("Resources/ENSDKResources.bundle")],
       publicHeadersPath: "ENSDK/include",
       cSettings: [
-        .headerSearchPath("ENSDK/include"),
+        .headerSearchPath("ENSDK/include")
       ]
     ),
     .target(
       name: "EvernoteSDK",
       dependencies: ["EvernoteSDKObjC"],
-      path: "SPM"
+      path: "SPM",
+//      resources: [.copy("Resources/ENSDKResources.bundle")],
     ),
   ]
 )
-
