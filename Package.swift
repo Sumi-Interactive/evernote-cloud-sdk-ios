@@ -27,7 +27,6 @@ let package = Package(
       name: "EvernoteSDK",
       dependencies: ["EvernoteSDKObjC"],
       path: "SPM",
-//      resources: [.copy("Resources/ENSDKResources.bundle")],
     ),
   ]
 )

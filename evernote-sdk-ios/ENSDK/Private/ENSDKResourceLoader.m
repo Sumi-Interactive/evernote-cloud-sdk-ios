@@ -27,21 +27,26 @@
  */
 
 #import "ENSDKResourceLoader.h"
-#import "ENSDKPrivate.h"
 #import "ENSDKLogging.h"
+#import "ENSDKPrivate.h"
 
 @implementation ENSDKResourceLoader
-+ (NSString *)pathToResourceNamed:(nullable NSString *)name extension:(nullable NSString *)extension
-{
++ (NSString *)pathToResourceNamed:(nullable NSString *)name
+                        extension:(nullable NSString *)extension {
     NSBundle *appBundle = [NSBundle bundleForClass:[self class]];
-    NSURL *sdkBundleURL = [appBundle URLForResource:@"EvernoteSDK_EvernoteSDKObjC" withExtension:@"bundle"];
+    NSURL *sdkBundleURL =
+        [appBundle URLForResource:@"EvernoteSDK_EvernoteSDKObjC"
+                    withExtension:@"bundle"];
     NSBundle *sdkBundle = [NSBundle bundleWithURL:sdkBundleURL];
-    NSURL *resourcesBundleURL = [sdkBundle URLForResource:@"ENSDKResources" withExtension:@"bundle"];
+    NSURL *resourcesBundleURL = [sdkBundle URLForResource:@"ENSDKResources"
+                                            withExtension:@"bundle"];
     NSBundle *resourcesBundle = [NSBundle bundleWithURL:resourcesBundleURL];
-    
-    NSString * path = [resourcesBundle pathForResource:name ofType:extension];
+
+    NSString *path = [resourcesBundle pathForResource:name ofType:extension];
     if (!path) {
-        ENSDKLogError(@"Failed to load resource from ENSDKResources.bundle. Is it included in your app?");
+        ENSDKLogError(
+            @"Failed to load resource from ENSDKResources.bundle. Is it "
+            @"included in your app?");
         assert(path);
     }
     return path;
